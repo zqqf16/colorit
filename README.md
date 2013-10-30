@@ -41,6 +41,8 @@ print(green('Hello World'))
 - reverse
 - concealed
 
+![all](examples/all.png)
+
 **License**
 
 The MIT License (MIT)
