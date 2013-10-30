@@ -3,12 +3,15 @@
 
 from __future__ import print_function
 
-__all__ = ['paint', 'colors', 'attributes']
+import sys
+
+colors = ['black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white']
+
+__all__ = ['paint', 'colors', 'attributes']+colors
 __version__ = '1.0'
 
 _FORMAT = '\033[{}m\033[{};{}m{}\033[0m'
 
-colors = ['black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white']
 attributes = ['blod', 'underscore', 'blink', 'reverse', 'concealed']
 
 _FOREGROUND = dict(zip(colors, list(range(30, 38))))
@@ -21,6 +24,10 @@ def paint(foreground, background=None, attribute=None):
     att = _attributes.get(attribute, 0)
 
     return lambda s: _FORMAT.format(att, bg, fg, s)
+
+_self = sys.modules[__name__]
+for c in colors:
+    setattr(_self, c, paint(c))
 
 if __name__ == '__main__':
     def print_row(b):
